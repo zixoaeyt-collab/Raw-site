@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="404 — Page not found. RIN OKABE studio." />
+    <title>404 — Not Found · RIN OKABE</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=JetBrains+Mono:wght@400&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0e0d0b;
+        --text: #f2efe6;
+        --mute: #a8a399;
+        --gold: #d4a857;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+      .wrap {
+        max-width: 560px;
+        text-align: center;
+      }
+      .mono {
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+      }
+      .big {
+        font-family: "Fraunces", serif;
+        font-size: clamp(80px, 18vw, 200px);
+        line-height: 0.9;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--text);
+        margin-bottom: 1.5rem;
+      }
+      h1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: clamp(28px, 5vw, 48px);
+        line-height: 1;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.5rem;
+      }
+      p {
+        color: var(--mute);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--gold);
+        color: var(--bg);
+        padding: 0.875rem 1.5rem;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      a:hover { background: var(--text); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="mono">404 · Not Found</div>
+      <div class="big">404</div>
+      <h1>This page took the day off.</h1>
+      <p>The link you followed has gone walkabout, or the URL was typed wrong. The studio is still open — head back to the front door and we'll get you sorted.</p>
+      <a href="/">Back to the studio →</a>
+    </div>
+  </body>
+</html>
