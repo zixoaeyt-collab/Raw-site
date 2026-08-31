@@ -1,0 +1,372 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Instrument Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Bebas Neue", sans-serif;
+  --font-impact: "Anton", "Bebas Neue", sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-bebas: "Bebas Neue", "Barlow Condensed", sans-serif;
+
+  /* DARK ZZZ-GACHA-INSPIRED PALETTE
+     ----------------------------------
+     Canvas:    #0a0a0e (near-black with violet undertone)
+     Surface 1: #13131a (card)
+     Surface 2: #1c1c26 (raised)
+     Hairline:  rgba(255,255,255,0.08)
+     Text:      #f4f1e8 (warm off-white)
+     Mute:      #8a8a9a
+     Mute-2:    #5a5a6a
+
+     Accents:
+       Acid:     #f0ff4d  (primary CTA / R-rank)
+       Cyan:     #5be4ff  (links / info)
+       Magenta:  #ff3d8a  (rare / featured)
+       Orange:   #ff8c3d  (warm accent)
+       Red:      #e62b3d  (alert / S-rank)
+       Violet:   #8b5cff  (alt)
+  */
+
+  --color-void:    #06060a;
+  --color-ink-900: #0e0d0b;
+  --color-ink-800: #1a1814;
+  --color-ink-700: #25221c;
+  --color-ink-600: #2e2a22;
+  --color-ink-500: #3a3528;
+  --color-ink-400: #6e6960;
+  --color-ink-300: #8a857a;
+  --color-ink-200: #a8a399;
+  --color-ink-100: #d8d3c6;
+  --color-ink-50:  #f2efe6;
+
+  /* Accent: gold is the ONLY loud color */
+  --color-gold:        #d4a857;
+  --color-gold-dim:    #b08c42;
+  --color-gold-bright: #e8c77a;
+
+  /* Rarity / semantic — desaturated, calm */
+  --color-info:   #7fb8d4;
+  --color-warm:   #d67b5a;
+  --color-rare:   #c76b7a;
+  --color-danger: #d2554a;
+
+  /* Editorial / print accent — used for the cream "printed insert"
+     storyboard section. Flat, matte, no gradient. */
+  --color-cherry: #d63a3a;
+
+  /* Back-compat aliases during transition */
+  --color-acid:        #d4a857;
+  --color-acid-dim:    #b08c42;
+  --color-cyan:        #7fb8d4;
+  --color-magenta:     #c76b7a;
+  --color-orange:      #d67b5a;
+  --color-red:         #d2554a;
+  --color-violet:      #c76b7a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-ink-900);
+  color: var(--color-ink-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--color-acid); color: var(--color-ink-900); }
+
+.font-display { font-family: var(--font-display); }
+.font-impact  { font-family: var(--font-impact); letter-spacing: -0.005em; }
+.font-bebas   { font-family: var(--font-bebas); }
+.font-serif   { font-family: var(--font-serif); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-x-rev {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes spin-slow { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.rise { animation: rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+.r1 { animation-delay: 0.05s; }
+.r2 { animation-delay: 0.12s; }
+.r3 { animation-delay: 0.2s; }
+.r4 { animation-delay: 0.28s; }
+
+.scale-in { animation: scale-in 0.6s cubic-bezier(0.2, 0.6, 0.2, 1) both; }
+.spin-slow { animation: spin-slow 30s linear infinite; }
+.blink { animation: blink 1.1s steps(1) infinite; }
+
+.marquee    { animation: marquee-x 40s linear infinite; }
+.marquee-fast { animation: marquee-x 22s linear infinite; }
+.marquee-rev { animation: marquee-x-rev 50s linear infinite; }
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+}
+
+/* ============================================================
+   ZZZ GACHA-STYLE MARQUEE TEXT
+   - Chunky outlined display
+   - Decorative diamond/dot dividers
+   - Slight tilt / skew
+   ============================================================ */
+.gacha-text {
+  font-family: var(--font-impact);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 110px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px var(--color-ink-50);
+  color: transparent;
+  transition: color 0.3s ease;
+}
+.gacha-text.solid { color: var(--color-ink-50); -webkit-text-stroke: 0; }
+.gacha-text.gold { -webkit-text-stroke-color: var(--color-gold); color: var(--color-gold); }
+.gacha-text.info { -webkit-text-stroke-color: var(--color-info); color: var(--color-info); }
+.gacha-text.rare { -webkit-text-stroke-color: var(--color-rare); color: var(--color-rare); }
+.gacha-text.warm { -webkit-text-stroke-color: var(--color-warm); color: var(--color-warm); }
+
+.gacha-divider {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4em;
+  height: 1.4em;
+  color: var(--color-acid);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   ACCORDION
+   ============================================================ */
+.acc-item {
+  flex: 0.6;
+  transition: flex-grow 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.acc-item:hover, .acc-item[data-open="true"] { flex: 4.5; }
+
+/* ============================================================
+   PRELOADER (BucksSauce choreography — centered)
+   Stacked clip-path revealers + items flying in from center
+   ============================================================ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 100;
+  background: var(--color-ink-900);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preloader-bg,
+.preloader-revealer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Force origin to be the exact center of the viewport */
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+}
+.preloader-bg { background-color: var(--color-ink-900); }
+.preloader-revealer {
+  /* Use percentage-based circle so it scales from the geometric center.
+     The "at 50% 50%" anchor is relative to the element's own box,
+     which is the full viewport — so the circle always grows from center. */
+  clip-path: circle(0% at 50% 50%);
+  -webkit-clip-path: circle(0% at 50% 50%);
+  will-change: clip-path, -webkit-clip-path;
+}
+/* Reveal layers — dark theme.
+   2 stacked layers to avoid the "sweeping wave" look and keep
+   the focus on the center origin. */
+.preloader-revealer-1 { background-color: var(--color-ink-800); }
+.preloader-revealer-2 { background-color: var(--color-ink-700); }
+.preloader-revealer-3 { display: none; }
+.preloader-revealer-4 { display: none; }
+
+.preloader-items {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.preloader-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(80px, 14vw, 180px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%) scale(0);
+  will-change: transform;
+  /* No border. No heavy shadow. The PNG carries its own visual weight. */
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
+}
+.preloader-item-inner {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.preloader-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  width: min(560px, 90vw);
+  will-change: transform, opacity;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  text-align: center;
+}
+
+/* ============================================================
+   HAIRLINES / DECKS
+   ============================================================ */
+.hairline { border-color: rgba(255, 255, 255, 0.08); }
+.hairline-strong { border-color: rgba(255, 255, 255, 0.16); }
+
+/* ============================================================
+   POPUP HERO — BucksSauce choreography targets
+   Each class sets the initial state (invisible / off-position)
+   and the will-change hint. GSAP then animates to the final state.
+   ============================================================ */
+.hero-char {
+  display: inline-block;
+  transform: translateY(60px);
+  opacity: 0;
+  scale: 0.5;
+  will-change: transform, opacity;
+}
+.hero-line {
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+.footer-line {
+  display: block;
+  overflow: hidden;
+}
+.footer-line > * {
+  display: block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+.hero-img-bg {
+  transform: scale(0);
+  will-change: transform;
+}
+.hero-img-inner {
+  /* starts 50% of own height below the circle's center.
+     GSAP animates `y: -100%` to land it at -50% (centered). */
+  transform: translate(-50%, 50%) rotate(8deg);
+  will-change: transform;
+}
+.hero-tag {
+  /* parent rotation lives on .hero-tag-rotate; this carries the scale. */
+  transform: scale(0);
+  will-change: transform, opacity;
+}
+.hero-tag-rotate {
+  /* GSAP doesn't touch this — it owns the static rotation. */
+  transform-origin: center;
+}
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+.tabular { font-variant-numeric: tabular-nums; }
+.clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.lift { transition: transform 300ms cubic-bezier(0.2, 0.6, 0.2, 1), border-color 300ms ease; }
+.lift:hover { transform: translateY(-3px); }
+
+/* Card "deck" with subtle inner stroke + glow on hover */
+.deck {
+  background: var(--color-ink-800);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.deck::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 30%);
+}
+
+/* Chevron divider */
+.divider-chevron {
+  background-image: radial-gradient(circle, var(--color-ink-300) 1px, transparent 1.5px);
+  background-size: 6px 6px;
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 6px;
+}
+
+/* Corner cut / angled ribbon */
+.ribbon-c {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+.ribbon-c-r {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+}
+.ribbon-both {
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+}
+
+/* Big angular section break */
+.angle-cut {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), 50% 100%, 0 calc(100% - 32px));
+}
+
+/* Focus — gold ring for visibility on the warm dark surface */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+button, a { cursor: pointer; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
